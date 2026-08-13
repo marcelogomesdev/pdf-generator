@@ -17,13 +17,13 @@ O projeto foi desenvolvido com foco em **simplicidade, produtividade, responsivi
 
 Interface principal do PDF Generator, reunindo formulário, configurações e pré-visualização do documento em tempo real.
 
-![PDF Generator - Tela principal](images/pdf-generator-home.png)
+![PDF Generator - Tela principal](images/pdf-generator-home.PNG)
 
 ### Pré-visualização do documento
 
 Visualização do documento preenchido antes da geração do arquivo PDF.
 
-![PDF Generator - Pré-visualização](images/pdf-generator-preview.png)
+![PDF Generator - Pré-visualização](images/pdf-generator-preview.PNG)
 
 ---
 
