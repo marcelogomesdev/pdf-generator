@@ -2,6 +2,8 @@
   <img src="images/banner.png" alt="Banner PDF Generator" width="100%">
 </p>
 
+<p align="center"> <a href="https://marcelogomesdev.github.io/pdf-generator/" target="_blank"> <img src="https://img.shields.io/badge/🚀_Acessar_Projeto-0078D4?style=for-the-badge" alt="Acessar Projeto"> </a> </p>
+
 # 📄 PDF Generator
 
 Aplicação web para **criação de documentos profissionais diretamente no navegador**, com formulário completo, pré-visualização A4 em tempo real, modelos personalizáveis e geração de arquivos PDF.
