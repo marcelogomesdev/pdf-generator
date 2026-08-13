@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Crie documentos profissionais, visualize em tempo real e baixe em PDF diretamente no navegador.">
+  <meta name="theme-color" content="#4f46e5">
+  <title>PDF Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Página inicial do PDF Generator">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" role="img"><path d="M6 2h8l4 4v16H6z"/><path d="M14 2v5h5"/><path d="M9 12h6M9 16h6"/></svg>
+        </span>
+        <span>
+          <strong>PDF Generator</strong>
+          <small>Documentos profissionais em poucos minutos</small>
+        </span>
+      </a>
+
+      <div class="topbar-actions">
+        <span class="save-status" id="saveStatus" aria-live="polite">Rascunho salvo</span>
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Alternar tema" title="Alternar tema">
+          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="editor-panel" aria-labelledby="editorTitle">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">Editor</span>
+            <h1 id="editorTitle">Crie seu documento</h1>
+            <p>Preencha os campos e acompanhe a pré-visualização em tempo real.</p>
+          </div>
+          <span class="step-badge">1 de 2</span>
+        </div>
+
+        <form id="documentForm" novalidate>
+          <fieldset>
+            <legend>Modelo do documento</legend>
+            <div class="template-grid" role="radiogroup" aria-label="Escolha um modelo">
+              <label class="template-option active">
+                <input type="radio" name="template" value="modern" checked>
+                <span class="template-thumb modern-thumb" aria-hidden="true"><i></i><b></b><em></em></span>
+                <span><strong>Moderno</strong><small>Limpo e versátil</small></span>
+              </label>
+              <label class="template-option">
+                <input type="radio" name="template" value="classic">
+                <span class="template-thumb classic-thumb" aria-hidden="true"><i></i><b></b><em></em></span>
+                <span><strong>Clássico</strong><small>Formal e elegante</small></span>
+              </label>
+              <label class="template-option">
+                <input type="radio" name="template" value="minimal">
+                <span class="template-thumb minimal-thumb" aria-hidden="true"><i></i><b></b><em></em></span>
+                <span><strong>Minimalista</strong><small>Direto e leve</small></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Informações principais</legend>
+            <div class="form-grid two-columns">
+              <div class="field-group full-width">
+                <label for="documentTitle">Título do documento <span>*</span></label>
+                <input id="documentTitle" name="documentTitle" type="text" maxlength="80" placeholder="Ex.: Proposta Comercial" required>
+                <small class="field-error" data-error-for="documentTitle"></small>
+              </div>
+              <div class="field-group">
+                <label for="authorName">Nome / Empresa <span>*</span></label>
+                <input id="authorName" name="authorName" type="text" maxlength="70" placeholder="Seu nome ou empresa" required>
+                <small class="field-error" data-error-for="authorName"></small>
+              </div>
+              <div class="field-group">
+                <label for="recipientName">Destinatário</label>
+                <input id="recipientName" name="recipientName" type="text" maxlength="70" placeholder="Nome do destinatário">
+              </div>
+              <div class="field-group">
+                <label for="documentDate">Data</label>
+                <input id="documentDate" name="documentDate" type="date">
+              </div>
+              <div class="field-group">
+                <label for="referenceNumber">Referência</label>
+                <input id="referenceNumber" name="referenceNumber" type="text" maxlength="30" placeholder="Ex.: PROP-2026-001">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Conteúdo</legend>
+            <div class="form-grid">
+              <div class="field-group">
+                <div class="label-row">
+                  <label for="introText">Introdução <span>*</span></label>
+                  <span id="introCounter">0/300</span>
+                </div>
+                <textarea id="introText" name="introText" rows="4" maxlength="300" placeholder="Apresente o objetivo principal do documento." required></textarea>
+                <small class="field-error" data-error-for="introText"></small>
+              </div>
+              <div class="field-group">
+                <div class="label-row">
+                  <label for="bodyText">Descrição detalhada <span>*</span></label>
+                  <span id="bodyCounter">0/1800</span>
+                </div>
+                <textarea id="bodyText" name="bodyText" rows="9" maxlength="1800" placeholder="Descreva os detalhes, condições, escopo ou informações relevantes." required></textarea>
+                <small class="field-error" data-error-for="bodyText"></small>
+              </div>
+              <div class="field-group">
+                <div class="label-row">
+                  <label for="closingText">Encerramento</label>
+                  <span id="closingCounter">0/300</span>
+                </div>
+                <textarea id="closingText" name="closingText" rows="4" maxlength="300" placeholder="Inclua uma mensagem final ou chamada para ação."></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Personalização</legend>
+            <div class="form-grid two-columns customization-grid">
+              <div class="field-group">
+                <label for="accentColor">Cor de destaque</label>
+                <div class="color-control">
+                  <input id="accentColor" name="accentColor" type="color" value="#4f46e5">
+                  <input id="accentColorText" type="text" value="#4F46E5" maxlength="7" aria-label="Código hexadecimal da cor">
+                </div>
+              </div>
+              <div class="field-group">
+                <label for="fontFamily">Fonte</label>
+                <select id="fontFamily" name="fontFamily">
+                  <option value="inter">Inter</option>
+                  <option value="merriweather">Merriweather</option>
+                  <option value="arial">Arial</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label for="fontSize">Tamanho do texto</label>
+                <select id="fontSize" name="fontSize">
+                  <option value="small">Pequeno</option>
+                  <option value="medium" selected>Médio</option>
+                  <option value="large">Grande</option>
+                </select>
+              </div>
+              <div class="field-group checkbox-field">
+                <label><input id="showSignature" name="showSignature" type="checkbox" checked><span>Exibir assinatura</span></label>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button class="button secondary" id="clearButton" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v5M14 11v5"/></svg>
+              Limpar
+            </button>
+            <button class="button primary" id="downloadButton" type="submit">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+              Gerar e baixar PDF
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="preview-panel" aria-labelledby="previewTitle">
+        <div class="preview-toolbar">
+          <div>
+            <span class="eyebrow">Pré-visualização</span>
+            <h2 id="previewTitle">Seu documento</h2>
+          </div>
+          <div class="zoom-controls" aria-label="Controles de zoom">
+            <button id="zoomOut" type="button" aria-label="Diminuir zoom">−</button>
+            <span id="zoomValue">75%</span>
+            <button id="zoomIn" type="button" aria-label="Aumentar zoom">+</button>
+          </div>
+        </div>
+
+        <div class="paper-stage" id="paperStage">
+          <article class="document-paper template-modern font-inter size-medium" id="documentPreview">
+            <div class="document-accent"></div>
+            <header class="document-header">
+              <div>
+                <p class="document-kicker" id="previewReference">DOCUMENTO</p>
+                <h2 id="previewDocumentTitle">Título do documento</h2>
+                <p id="previewAuthor">Nome ou empresa</p>
+              </div>
+              <div class="document-meta">
+                <span id="previewDate">Data</span>
+                <span id="previewRecipient">Destinatário</span>
+              </div>
+            </header>
+
+            <div class="document-divider"></div>
+
+            <main class="document-content">
+              <p class="document-intro placeholder-text" id="previewIntro">A introdução do seu documento aparecerá aqui.</p>
+              <div class="document-body placeholder-text" id="previewBody">O conteúdo principal será exibido nesta área conforme você preencher o formulário. Use parágrafos para organizar as informações com clareza.</div>
+              <p class="document-closing" id="previewClosing"></p>
+            </main>
+
+            <footer class="document-footer">
+              <div class="signature-block" id="signatureBlock">
+                <span></span>
+                <strong id="previewSignature">Nome ou empresa</strong>
+                <small>Responsável pelo documento</small>
+              </div>
+              <div class="page-mark">PDF Generator</div>
+            </footer>
+          </article>
+        </div>
+        <p class="preview-note">A aparência final pode variar levemente conforme o navegador e a quantidade de conteúdo.</p>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="footer-identity">
+        <strong>PDF Generator</strong>
+        <span>Documentos profissionais em poucos minutos</span>
+      </div>
+      <div class="footer-signature">
+        <span>Desenvolvido por Marcelo Gomes dev</span>
+        <nav class="footer-links" aria-label="Links do desenvolvedor">
+          <a href="https://github.com/marcelogomesdev" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Marcelo Gomes dev">GitHub</a>
+          <span aria-hidden="true">•</span>
+          <a href="https://www.linkedin.com/in/marcelogomesdev/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de Marcelo Gomes dev">LinkedIn</a>
+        </nav>
+      </div>
+    </footer>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="modal-backdrop" id="confirmModal" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <span class="modal-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v5M14 11v5"/></svg>
+        </span>
+        <h2 id="modalTitle">Limpar formulário?</h2>
+        <p>Todos os campos e o rascunho salvo serão apagados. Esta ação não pode ser desfeita.</p>
+        <div class="modal-actions">
+          <button class="button secondary" id="cancelClear" type="button">Cancelar</button>
+          <button class="button danger" id="confirmClear" type="button">Sim, limpar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
